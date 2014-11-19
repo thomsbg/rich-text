@@ -69,4 +69,14 @@ describe('diff()', function () {
     var expected = new Delta().insert('Good', { bold: true }).delete(2).retain(1, { italic: true, color: null }).delete(3).insert('og', { italic: true });
     expect(a.diff(b)).to.deep.equal(expected);
   });
+
+  it('semantic', function () {
+    var a = new Delta().insert('Particle man, particle man / Doing the things a particle can / What\'s he like? It\'s not important / Particle man');
+    var b = new Delta().insert('Triangle man, triangle man / Triangle man hates person man / They have a fight, triangle wins / Triangle man');
+    var diffRaw = a.diff(b);
+    var diffSemantic = a.diff(b, true);
+    var expectedSemantic = new Delta().insert('Triang').delete(6).retain(8).insert('triang').delete(6).retain(9).insert('Triangle man hates person man / They have a fight, triangle wins / Triang').delete(77);
+    expect(diffRaw).to.not.equal(diffSemantic);
+    expect(diffSemantic).to.deep.equal(expectedSemantic);
+  });
 });
