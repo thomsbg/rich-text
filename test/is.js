@@ -9,9 +9,15 @@ describe('is', function () {
       expect(is.equal(obj, obj)).to.equal(true);
     });
 
-    it('deep equal objects', function () {
+    it('one level deep equal objects', function () {
       var obj1 = { a: 1, b: true, c: 'test' };
       var obj2 = { a: 1, c: 'test', b: true };
+      expect(is.equal(obj1, obj2, 1)).to.equal(true);
+    });
+
+    it('two level deep equal objects', function() {
+      var obj1 = { a: 1, b: { c: true } };
+      var obj2 = { a: 1, b: { c: true } };
       expect(is.equal(obj1, obj2)).to.equal(true);
     });
 
@@ -28,7 +34,7 @@ describe('is', function () {
     });
 
     it('null and undefined', function () {
-      expect(is.equal(null, undefined)).to.equal(true);
+      expect(is.equal(null, undefined)).to.equal(false);
     });
 
     it('existing with nonexisting', function () {
