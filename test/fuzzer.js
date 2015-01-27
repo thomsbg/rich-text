@@ -4,8 +4,8 @@ var richType = require('../lib/type');
 var Delta = richType.Delta;
 
 var FORMATS = {
-  color: ['red', 'orange', 'yellow', 'green', 'blue', 'purple', null],
-  font: ['serif', 'sans-serif', 'monospace', null],
+  color: ['red', 'orange', 'yellow', 'green', 'blue', 'purple', { complex: 'value' }, null],
+  font: ['serif', 'sans-serif', 'monospace', [1, 2, 3], null],
   bold: [true, null],
   italic: [true, null]
 };

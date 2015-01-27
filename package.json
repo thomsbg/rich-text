@@ -6,6 +6,7 @@
   "homepage": "https://github.com/ottypes/rich-text",
   "main": "index.js",
   "dependencies": {
+    "deep-equal": "~0.2.1",
     "fast-diff": "git://github.com/tangentialism/fast-diff#master"
   },
   "devDependencies": {
