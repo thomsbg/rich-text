@@ -124,4 +124,18 @@ describe('compose()', function () {
     var expected = new Delta().insert(2);
     expect(a.compose(b)).to.deep.equal(expected);
   });
+
+  it('immutability', function () {
+    var attr1 = { bold: true };
+    var attr2 = { bold: true };
+    var a1 = new Delta().insert('Test', attr1);
+    var a2 = new Delta().insert('Test', attr1);
+    var b1 = new Delta().retain(1, { color: 'red' }).delete(2);
+    var b2 = new Delta().retain(1, { color: 'red' }).delete(2);
+    var expected = new Delta().insert('T', { color: 'red', bold: true }).insert('t', attr1);
+    expect(a1.compose(b1)).to.deep.equal(expected);
+    expect(a1).to.deep.equal(a2);
+    expect(b1).to.deep.equal(b2);
+    expect(attr1).to.deep.equal(attr2);
+  });
 });
