@@ -56,9 +56,10 @@ This format is suitable for [Operational Transform](https://en.wikipedia.org/wik
 - [`slice`](#slice)
 - [`compose`](#compose)
 - [`transform`](#transform)
+- [`transformPosition`](#transformposition)
 
 #### [Documents](#documents-1)
-
+- [`concat`](#concat)
 - [`diff`](#diff)
 
 
@@ -106,7 +107,7 @@ Delete operations have a Number `delete` key defined representing the number of 
 
 ### Retain Operation
 
-Retain operations have a Number `retain` key defined representing the number of characters to keep (other libraries might use the name keep or skip). An optional `attributes` key can be defined with an Object to describe formatting changes to the character range. A value of null in the `attributes` Object represents removal of that key.
+Retain operations have a Number `retain` key defined representing the number of characters to keep (other libraries might use the name keep or skip). An optional `attributes` key can be defined with an Object to describe formatting changes to the character range. A value of `null` in the `attributes` Object represents removal of that key.
 
 *Note: It is not necessary to retain the last characters of a document as this is implied.*
 
@@ -366,6 +367,40 @@ var transformedIndex = delta.transformPosition(index);
 A Delta with only insert operations can be used to represent a rich text document. This can be thought of as a Delta applied to an empty document.
 
 The following methods are supported only for Deltas that represent a document (i.e. they only contain inserts). There are no guarantees on the behavior on non-document Deltas.
+
+---
+
+### concat()
+
+Returns a new Delta representing the concatenation of this and another document Delta's operations.
+
+#### Methods
+
+- `concat(other)`
+
+#### Parameters
+
+- `other` - Document Delta to concatenate
+
+#### Returns
+
+- `Delta` - Concatenated document Delta
+
+#### Example
+
+```js
+var a = new Delta().insert('Hello');
+var b = new Delta().insert('!', { bold: true });
+
+
+// {
+//   ops: [
+//     { insert: 'Hello' },
+//     { insert: '!', attributes: { bold: true } }
+//   ]
+// }
+var concat = a.concat(b);
+```
 
 ---
 

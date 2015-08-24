@@ -1,6 +1,6 @@
 {
   "name": "rich-text",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "Format for representing rich text documents and changes.",
   "author": "Jason Chen <jhchen7@gmail.com>",
   "homepage": "https://github.com/ottypes/rich-text",
@@ -10,11 +10,11 @@
     "fast-diff": "git://github.com/thomsbg/fast-diff#master"
   },
   "devDependencies": {
-    "chai": "~2.3.0",
+    "chai": "~3.2.0",
     "coveralls": "~2.11.2",
     "grunt": "~0.4.5",
     "istanbul": "~0.3.14",
-    "lodash": "~3.9.3",
+    "lodash": "~3.10.1",
     "mocha": "~2.2.5",
     "ot-fuzzer": "~1.0.0"
   },
