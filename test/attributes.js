@@ -73,6 +73,12 @@ describe('attributes', function () {
     it('remove missing', function () {
       expect(op.attributes.compose(attributes, { italic: null })).to.deep.equal(attributes);
     });
+
+    it('merge nested', function() {
+      var a = { colors: { red: 1, blue: 1 } };
+      var b = { colors: { blue: 2, yellow: 1 } };
+      expect(op.attributes.compose(a, b)).to.deep.equal({ colors: { red: 1, blue: 2, yellow: 1 } });
+    });
   });
 
   describe('diff()', function () {
@@ -108,6 +114,13 @@ describe('attributes', function () {
       var expected = { color: 'blue' };
       expect(op.attributes.diff(format, overwritten)).to.deep.equal(expected);
     });
+
+    it('compares nested', function() {
+      var base = { colors: { red: 1, blue: 1 } };
+      var changed = { colors: { red: 1, blue: 2, yellow: 1 } };
+      var expected = { colors: { blue: 2, yellow: 1 } };
+      expect(op.attributes.diff(base, changed)).to.deep.equal(expected);
+    });
   });
 
   describe('transform()', function () {
@@ -134,6 +147,22 @@ describe('attributes', function () {
 
     it('without priority', function () {
       expect(op.attributes.transform(left, right, false)).to.deep.equal(right);
+    });
+
+    it('nested with priority', function() {
+      var a = { colors: { red: 1, blue: 1 } };
+      var b = { colors: { red: 2, yellow: 1 } };
+      expect(op.attributes.transform(a, b, true)).to.deep.equal({
+        colors: { yellow: 1 }
+      });
+    });
+
+    it('nested without priority', function() {
+      var a = { colors: { red: 1, blue: 1 } };
+      var b = { colors: { red: 2, yellow: 1 } };
+      expect(op.attributes.transform(a, b, false)).to.deep.equal({
+        colors: { red: 2, yellow: 1 }
+      });
     });
   });
 });
